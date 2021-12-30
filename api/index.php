@@ -17,6 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 $file= __DIR__ . '/..'.$_SERVER["PHP_SELF"];
 
 if (file_exists($file)) {
+    if (pathinfo($file)['extension'] == 'php') {
+        return false;
+    }
     ob_start();
     // 打开文件
     $handler = fopen($file, 'rb');
