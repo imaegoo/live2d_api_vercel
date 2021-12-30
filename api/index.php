@@ -18,12 +18,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 $file= __DIR__ . '/..'.$_SERVER["PHP_SELF"];
 
-if(file_exists($file))
-{
-   return false;
+if (file_exists($file)) {
+    ob_end_clean();
+    ob_start();
+    // 打开文件
+    $handler = fopen($file, 'r+b');
+    $file_size = filesize($file);
+    // 输出文件内容
+    echo fread($handler, $file_size);
+    fclose($handler);
+    ob_end_flush();
+    exit;
+} else {
+    http_response_code(404);
 }
-else
-{
-    require_once __DIR__ . '/../index.php';
-}
-#echo $_SERVER["PHP_SELF"];
