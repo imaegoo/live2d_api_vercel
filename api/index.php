@@ -22,7 +22,7 @@ if (file_exists($file)) {
     ob_end_clean();
     ob_start();
     // 打开文件
-    $handler = fopen($file, 'r+b');
+    $handler = fopen($file, 'rb');
     $file_size = filesize($file);
     // 输出文件内容
     echo fread($handler, $file_size);
